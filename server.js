@@ -3,7 +3,7 @@ const db = require ('./src/db')
 const prodRouter = require('./src/routes/products')
 const cors = require("cors")
 const dotenv = require("dotenv")
-const reviewsRouter = require("./src/routes/reviews")
+// const reviewsRouter = require("./src/routes/reviews")
 
 dotenv.config()
 
@@ -18,8 +18,8 @@ server.get('/testSQL', async(req,res)=>{
     console.log('response is',response)
     res.send(response)
 })
-server.use('/students', studRouter)
-server.use('/projects',projRouter)
+server.use('/products', prodRouter)
+// server.use('/reviews',reviewsRouter)
 
 
 
