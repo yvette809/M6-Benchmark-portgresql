@@ -75,7 +75,7 @@ res.send(response.rows[0])
 //delete product
 
 prodRouter.delete('/:_id', async(req,res)=>{
-    const response = db.query(`DELETE FROM "products" WHERE _id =$1`, [req.params.id])
+    const response = db.query(`DELETE FROM "products" WHERE _id =$1`, [req.params._id])
     if((await response).rowCount=== 0){
         return res.status(404).send ("not found")
     }else{
