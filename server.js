@@ -13,11 +13,7 @@ server.use(cors())
 server.use(express.json())
 const port = process.env.PORT || 3005
 
-server.get('/testSQL', async(req,res)=>{
-    const response = await db.query("SELECT 1 +1")
-    console.log('response is',response)
-    res.send(response)
-})
+
 server.use('/products', prodRouter)
  server.use('/reviews',reviewsRouter)
 

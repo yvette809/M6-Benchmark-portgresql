@@ -13,7 +13,7 @@ reviewsRouter.get("/", async (req,res)=>{
 })
 // get a specific review
 reviewsRouter.get('/:_id', async(req,res)=>{
-    const response = await db.query(`SELECT _id,comment,rate,productId,createdAt FROM "reviews" WHERE _id=$1`,
+    const response = await db.query(`SELECT _id,comment,rate,"productId","createdAt" FROM "reviews" WHERE _id=$1`,
                                                [req.params._id])
       if (response.rowCount ===0)  {
           return res.status(404).send("not found")
@@ -44,7 +44,7 @@ reviewsRouter.put("/:_id", async (req, res)=> {
 
       
         if (result.rowCount === 0) 
-            return res.status(404).send("Not Found")
+        return res.status(404).send("Not Found")
 
         res.send(result.rows[0]) 
     }
@@ -56,10 +56,10 @@ reviewsRouter.put("/:_id", async (req, res)=> {
 
 // create a review
 reviewsRouter.post('/', async(req,res)=>{
-    const response = await db.query(`INSERT INTO "reviews"(_id,comment,rate,productId,createdAt)
-    values($1,$2,$3,$4,$5)
+    const response = await db.query(`INSERT INTO "reviews"(comment,rate,"productId","createdAt")
+    values($1,$2,$3,$4)
      RETURNING *`,
-      [req.body._id,req.body.comment,req.body.rate,req.body.productId,req.body.createdAt])
+      [req.body.comment,req.body.rate,req.body.productId,req.body.createdAt])
 console.log(response)
 res.send(response.rows[0])        
 })
@@ -74,6 +74,8 @@ reviewsRouter.delete('/:_id', async(req,res)=>{
         res.send('Deleted')
     }
 })
+
+
 
 
 module.exports = reviewsRouter
